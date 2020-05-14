@@ -1,8 +1,5 @@
 package com.alyliberiste.cursomc.resources;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,7 +19,7 @@ public class CategoriaResource {
 	
 	@RequestMapping(value="/{id}",method=RequestMethod.GET) //por ser atributo REST, tem que atribuir c/ algum verbo HTTP
 	public ResponseEntity<?> find(@PathVariable Integer id) { //ResponseEntity<?> entidade de qq cat
-		Categoria obj = service.buscar(id);
+		Categoria obj = service.find(id); //era service.buscar(id);
 		return ResponseEntity.ok().body(obj);
 				
 	

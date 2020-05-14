@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.alyliberiste.cursomc.domain.Categoria;
 import com.alyliberiste.cursomc.repositorires.CategoriaRepository;
+import com.alyliberiste.cursomc.services.exceptions.ObjectNotFoundException;
 
 @Service
 public class CategoriaService {
@@ -14,10 +15,9 @@ public class CategoriaService {
 	@Autowired //obj q vai ser autom instanciado pelo spring
 	private CategoriaRepository repo;
 	//criando 1 operação capaz de buscar 1 categoria por código
-	public Categoria buscar(Integer id) {
-		Optional <Categoria> obj = repo.findById(id);
-		return obj.orElse(null);
-		
+	public Categoria find(Integer id) {
+		Optional<Categoria> obj = repo.findById(id);
+		return obj.orElseThrow(() -> new ObjectNotFoundException(
+				"Objeto não encontrado! Id: " + id + ", Tipo: " + Categoria.class.getName()));
 	}
-
 }
