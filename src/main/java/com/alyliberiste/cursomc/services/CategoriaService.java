@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.alyliberiste.cursomc.domain.Categoria;
-import com.alyliberiste.cursomc.repositorires.CategoriaRepository;
+import com.alyliberiste.cursomc.repositories.CategoriaRepository;
 import com.alyliberiste.cursomc.services.exceptions.ObjectNotFoundException;
 
 @Service
