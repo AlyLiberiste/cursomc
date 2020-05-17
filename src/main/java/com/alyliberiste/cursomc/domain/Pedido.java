@@ -15,6 +15,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 public class Pedido implements Serializable{
 	private static final long serialVersionUID = 1L;
@@ -22,11 +25,14 @@ public class Pedido implements Serializable{
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
+	@JsonFormat(pattern="dd/MM/yyyy HH:mm")
 	private Date instante;
 	
+	@JsonManagedReference
 	@OneToOne(cascade=CascadeType.ALL, mappedBy="pedido")	//p/ qdo salvar e pedido e o seu pagamto & foi mapeado por pedido
 	private Pagamento pagamento;							//pedido tem 1 pagamento
 	
+	@JsonManagedReference
 	@ManyToOne
 	@JoinColumn(name="cliente_id")
 	private Cliente cliente;				 				//pedido tem 1 cliente
@@ -34,6 +40,7 @@ public class Pedido implements Serializable{
 	@ManyToOne
 	@JoinColumn(name="endereco_de_entrega_id")
 	private Endereco enderecoDeEntrega; 					//pedido tem 1 endereco de entrega
+	
 	
 	@OneToMany(mappedBy="id.pedido")						//foi mapeado no ItemPedido
 	private Set<ItemPedido> itens = new HashSet<>(); 		// não vai ter item repetido pro msmo pedido

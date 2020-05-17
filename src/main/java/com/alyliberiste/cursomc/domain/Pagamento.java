@@ -11,6 +11,7 @@ import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 
 import com.alyliberiste.cursomc.domain.enums.EstadoPagamento;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 @Inheritance(strategy=InheritanceType.JOINED) //mapeamto de herança e fazer junção da tabs dependetes
@@ -21,6 +22,7 @@ public abstract class Pagamento implements Serializable{ //abstract p/ nao poder
 	private Integer id;
 	private Integer estado;
 	
+	@JsonBackReference
 	@OneToOne
 	@JoinColumn(name="pedido_id")
 	@MapsId                      //p/ q o id do pagamento seja o mesmo do pedido

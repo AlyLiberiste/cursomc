@@ -16,6 +16,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Produto implements Serializable{
@@ -27,6 +28,7 @@ public class Produto implements Serializable{
 	private String nome;
 	private double preco;
 	
+	@JsonIgnore //todo que comeca c/ get é autom serielizado, aqui tem que ignorar isso
 	public List<Pedido> getPedidos(){ //getPedidos => padrao javabeans > exigencia de java
 		//Iniciando 1 lista de pedidos
 		List<Pedido> lista = new ArrayList<>();
@@ -49,6 +51,7 @@ public class Produto implements Serializable{
 	
 	private List<Categoria> categorias = new ArrayList<>();
 	
+	@JsonIgnore
 	@OneToMany(mappedBy="id.produto") 						//foi mapeado no ItemPedido
 	private Set<ItemPedido> itens = new HashSet<>(); 		// não vai ter item repetido pro msmo pedido
 															//e produto sabe os itens associados a ele
