@@ -15,7 +15,6 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -42,7 +41,7 @@ public class Produto implements Serializable{
 	//Anotação JSON inversa da categoria, OU SEJA,DO OUTRO LADO DA ASSOCIACAO
 	//JÁ FORAM BUSCADO OS OBJETOS. AQUI NAO TEM Q BUSCAR MAIS.
 	//APENAS OMITIR A LISTA DE CATEGIAS P/ CADA PRODUTO
-	@JsonBackReference
+	@JsonIgnore
 	@ManyToMany
 	@JoinTable(name = "PRODUTO_CATEGORIA",
 			joinColumns = @JoinColumn(name = "produto_id"),
