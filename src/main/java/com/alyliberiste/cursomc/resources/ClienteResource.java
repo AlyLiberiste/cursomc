@@ -18,8 +18,8 @@ public class ClienteResource {
 	private ClienteService service;
 	
 	@RequestMapping(value="/{id}",method=RequestMethod.GET) //por ser atributo REST, tem que atribuir c/ algum verbo HTTP
-	public ResponseEntity<?> find(@PathVariable Integer id) { //ResponseEntity<?> entidade de qq cat
-		Cliente obj = service.find(id); //era service.buscar(id);
+	public ResponseEntity<Cliente> find(@PathVariable Integer id) { 
+		Cliente obj = service.find(id); //era service.(id);
 		return ResponseEntity.ok().body(obj);
 				
 	

@@ -22,11 +22,12 @@ public class CategoriaResource {
 	private CategoriaService service;
 	
 	@RequestMapping(value="/{id}",method=RequestMethod.GET) 
-	public ResponseEntity<?> find(@PathVariable Integer id) { //ResponseEntity<?> entidade de qq cat
+	public ResponseEntity<Categoria> find(@PathVariable Integer id) { 
 		Categoria obj = service.find(id); 
 		return ResponseEntity.ok().body(obj);
 	}
-		
+	
+	//INSERINDO 1 NOVA CAT		
 	@RequestMapping(method=RequestMethod.POST) 
 	ResponseEntity<Void> insert(@RequestBody Categoria obj){
 		obj = service.insert(obj);
@@ -34,5 +35,12 @@ public class CategoriaResource {
 				.path("/{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).build();
 		
+	}
+	//Atualizando 1 categoria   
+	@RequestMapping(value="/{id}", method=RequestMethod.PUT)
+	ResponseEntity<Void> update(@RequestBody Categoria obj, @PathVariable Integer id){
+		obj.setId(id);
+		obj = service.update(obj);
+		return ResponseEntity.noContent().build();
 	}
 }

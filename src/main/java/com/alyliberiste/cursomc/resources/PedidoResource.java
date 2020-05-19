@@ -18,7 +18,7 @@ public class PedidoResource {
 	private PedidoService service;
 	
 	@RequestMapping(value="/{id}",method=RequestMethod.GET) //por ser atributo REST, tem que atribuir c/ algum verbo HTTP
-	public ResponseEntity<?> find(@PathVariable Integer id) { //ResponseEntity<?> entidade de qq cat
+	public ResponseEntity<Pedido> find(@PathVariable Integer id) {
 		Pedido obj = service.find(id); //era service.buscar(id);
 		return ResponseEntity.ok().body(obj);
 				
