@@ -3,10 +3,12 @@ package com.alyliberiste.cursomc.services;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.alyliberiste.cursomc.domain.Categoria;
 import com.alyliberiste.cursomc.repositories.CategoriaRepository;
+import com.alyliberiste.cursomc.services.exceptions.DataIntegrityException;
 import com.alyliberiste.cursomc.services.exceptions.ObjectNotFoundException;
 
 @Service
@@ -30,5 +32,18 @@ public class CategoriaService {
 	public Categoria update(Categoria obj) {
 		find(obj.getId());			//buscar o obj no BD e se não existe, lança 1 e
 		return repo.save(obj);
+	}
+
+	public void delete(Integer id) {
+		find(id);			// se id nao existe, lança 1 e
+		try {
+			repo.deleteById(id);		
+		}
+		catch (DataIntegrityViolationException e) {
+//segungo implemt c/ camada, é preciso lançar 1 e personalizada no package ...exceptions
+			throw new DataIntegrityException("Não é possível excluir uma categoria que tem produtos");
+			
+			
+		}
 	}
 }
