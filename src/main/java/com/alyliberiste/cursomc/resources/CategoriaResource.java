@@ -1,6 +1,8 @@
 package com.alyliberiste.cursomc.resources;
 
 import java.net.URI;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.alyliberiste.cursomc.domain.Categoria;
+import com.alyliberiste.cursomc.dto.CategoriaDTO;
 import com.alyliberiste.cursomc.services.CategoriaService;
 
 @RestController
@@ -49,7 +52,15 @@ public class CategoriaResource {
 	public ResponseEntity<Void> delete(@PathVariable Integer id) {
 		service.delete(id);
 		return ResponseEntity.noContent().build();
-		//recebendo a msg de erro de deleção
-		
+	}
+	
+	//Listando Cat
+	@RequestMapping(method=RequestMethod.GET) 
+	public ResponseEntity<List<CategoriaDTO>> findAll() { //retornar 1 lista de Cat DTO em vez de Cat
+		List<Categoria> list = service.findAll(); 
+		//percorrer a lista e p/ cada el, instance 1 lista DTO correspondente
+		//e converter 1 lista p/ 1 outra
+		List<CategoriaDTO> listDTO = list.stream().map(obj -> new CategoriaDTO(obj)).collect(Collectors.toList());
+		return ResponseEntity.ok().body(listDTO);
 	}
 }
