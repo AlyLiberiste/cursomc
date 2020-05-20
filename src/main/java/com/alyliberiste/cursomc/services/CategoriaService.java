@@ -11,6 +11,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.alyliberiste.cursomc.domain.Categoria;
+import com.alyliberiste.cursomc.dto.CategoriaDTO;
 import com.alyliberiste.cursomc.repositories.CategoriaRepository;
 import com.alyliberiste.cursomc.services.exceptions.DataIntegrityException;
 import com.alyliberiste.cursomc.services.exceptions.ObjectNotFoundException;
@@ -61,4 +62,8 @@ public class CategoriaService {
 		return repo.findAll(pageRequest);
 	}
 	
+	//método de validation
+	public Categoria fromDTO(CategoriaDTO objDTO) {
+		return new Categoria(objDTO.getId(), objDTO.getNome());
+	}
 }
