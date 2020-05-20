@@ -1,13 +1,22 @@
 package com.alyliberiste.cursomc.resources;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alyliberiste.cursomc.domain.Cliente;
+import com.alyliberiste.cursomc.dto.ClienteDTO;
 import com.alyliberiste.cursomc.services.ClienteService;
 
 @RestController
@@ -20,10 +29,49 @@ public class ClienteResource {
 	@RequestMapping(value="/{id}",method=RequestMethod.GET) //por ser atributo REST, tem que atribuir c/ algum verbo HTTP
 	public ResponseEntity<Cliente> find(@PathVariable Integer id) { //entidade de tipo Cliente
 		Cliente obj = service.find(id); //era service.(id);
-		return ResponseEntity.ok().body(obj);
-				
-	
-		
+		return ResponseEntity.ok().body(obj);	
 	}
+	
+	//Atualizando 1 categoria   
+		@RequestMapping(value="/{id}", method=RequestMethod.PUT)
+		//validation
+		ResponseEntity<Void> update(@Valid @RequestBody ClienteDTO objDTO, @PathVariable Integer id){
+			Cliente obj = service.fromDTO(objDTO);
+			obj.setId(id);
+			obj = service.update(obj);
+			return ResponseEntity.noContent().build();
+		}
+		
+		//Deletando 1 categoria
+		@RequestMapping(value="/{id}",method=RequestMethod.DELETE) 
+		public ResponseEntity<Void> delete(@PathVariable Integer id) {
+			service.delete(id);
+			return ResponseEntity.noContent().build();
+		}
+		
+		//Listando Cat
+		@RequestMapping(method=RequestMethod.GET) 
+		public ResponseEntity<List<ClienteDTO>> findAll() { //retornar 1 lista de Cat DTO em vez de Cat
+			List<Cliente> list = service.findAll(); 
+			//percorrer a lista e p/ cada el, instance 1 lista DTO correspondente
+			//e converter 1 lista p/ 1 outra
+			List<ClienteDTO> listDTO = list.stream().map(obj -> new ClienteDTO(obj)).collect(Collectors.toList());
+			return ResponseEntity.ok().body(listDTO);
+		}
+		
+		
+		//pagination - endpoint p/ pegar 1 req e chamar o método de service
+		@RequestMapping(value="/page", method=RequestMethod.GET) 
+		public ResponseEntity<Page<ClienteDTO>> findPage(
+				//Tornar esses param opcionais
+				@RequestParam(value="page", defaultValue = "0") Integer page, 
+				@RequestParam(value="linesPerPage", defaultValue = "24") Integer linesPerPage, 
+				@RequestParam(value="orderBy", defaultValue = "nome") String orderBy, 
+				@RequestParam(value="direction", defaultValue = "ASC") String direction) {
+			Page<Cliente> list = service.findPage(page, linesPerPage, orderBy, direction); 
+			//converter cada obj lista p/ page DTO
+			Page<ClienteDTO> listDTO = list.map(obj -> new ClienteDTO(obj));
+			return ResponseEntity.ok().body(listDTO);
+		}
 
 }
