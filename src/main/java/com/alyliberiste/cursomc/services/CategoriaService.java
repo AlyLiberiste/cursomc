@@ -35,8 +35,10 @@ public class CategoriaService {
 	}
 	//Update Cat
 	public Categoria update(Categoria obj) {
-		find(obj.getId());			//buscar o obj no BD e se não existe, lança 1 e
-		return repo.save(obj);
+		//atualizar cat a partir do BD
+		Categoria newObj = find(obj.getId());	
+		updateData(newObj, obj);
+		return repo.save(newObj);
 	}
 
 	public void delete(Integer id) {
@@ -65,5 +67,9 @@ public class CategoriaService {
 	//método de validation
 	public Categoria fromDTO(CategoriaDTO objDTO) {
 		return new Categoria(objDTO.getId(), objDTO.getNome());
+	}
+	//atualizacao do cat buscado no BD conforme declado em cima
+	private void updateData(Categoria newObj, Categoria obj) {
+		newObj.setNome(obj.getNome());
 	}
 }

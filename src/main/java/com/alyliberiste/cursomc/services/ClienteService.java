@@ -41,7 +41,7 @@ public class ClienteService {
 				repo.deleteById(id);		
 			}
 			catch (DataIntegrityViolationException e) {
-	//segungo implemt c/ camada, é preciso lançar 1 e personalizada no package ...exceptions
+	//seguindo implemt c/ camada, é preciso lançar 1 e personalizada no package ...exceptions
 				throw new DataIntegrityException("Não é possível excluir porque há entidade relacional");
 				
 				
