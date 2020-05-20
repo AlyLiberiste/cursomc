@@ -3,7 +3,6 @@ package com.alyliberiste.cursomc.resources.exception;
 import java.io.Serializable;
 
 public class StandardError implements Serializable {
-	
 	private static final long serialVersionUID = 1L;
 	//TRATAMTO DE ERRO PADRAO
 	
