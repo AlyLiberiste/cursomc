@@ -1,5 +1,6 @@
 package com.alyliberiste.cursomc.resources;
 
+import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -14,9 +15,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.alyliberiste.cursomc.domain.Cliente;
 import com.alyliberiste.cursomc.dto.ClienteDTO;
+import com.alyliberiste.cursomc.dto.ClienteNewDTO;
 import com.alyliberiste.cursomc.services.ClienteService;
 
 @RestController
@@ -31,6 +34,18 @@ public class ClienteResource {
 		Cliente obj = service.find(id); //era service.(id);
 		return ResponseEntity.ok().body(obj);	
 	}
+	//INSERINDO 1 NOVA cli		
+		@RequestMapping(method=RequestMethod.POST) 
+		//Validation
+		ResponseEntity<Void> insert(@Valid @RequestBody ClienteNewDTO objDTO){
+			//convert objDTO p/ obj entity
+			Cliente obj = service.fromDTO(objDTO);
+			obj = service.insert(obj);
+			URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
+					.path("/{id}").buildAndExpand(obj.getId()).toUri();
+			return ResponseEntity.created(uri).build();
+			
+		}
 	
 	//Atualizando 1 categoria   
 		@RequestMapping(value="/{id}", method=RequestMethod.PUT)
