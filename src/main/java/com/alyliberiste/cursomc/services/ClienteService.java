@@ -58,7 +58,7 @@ public class ClienteService {
 			}
 			catch (DataIntegrityViolationException e) {
 	//seguindo implemt c/ camada, é preciso lançar 1 e personalizada no package ...exceptions
-				throw new DataIntegrityException("Não é possível excluir porque há entidade relacional");
+				throw new DataIntegrityException("Não é possível excluir porque há pedidos relacionados");
 				
 				
 			}

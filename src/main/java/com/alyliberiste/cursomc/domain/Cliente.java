@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -29,7 +30,7 @@ public class Cliente implements Serializable{
 	private String cpfOucnpj;
 	private Integer tipo; //TipoCliente vai ser armazenado como int (ou seja, tem 	TipoCliente p/ Integer)
 							//dpois a implemtacao ter sido feita 
-	@OneToMany(mappedBy="cliente")
+	@OneToMany(mappedBy="cliente", cascade=CascadeType.ALL) //cascade=apagar 1 cli > apagar end dele auto
 	private List<Endereco> enderecos = new ArrayList<>();	
 	
 	//NAO PRECISA CRIAR A CLASSE (TELEFONE) POR SER MTO SIMPLES
