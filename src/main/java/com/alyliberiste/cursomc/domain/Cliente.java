@@ -8,6 +8,7 @@ import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
+import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -26,11 +27,13 @@ public class Cliente implements Serializable{
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 	private String nome;
+	
+	@Column(unique=true) //integridade de email
 	private String email;
 	private String cpfOucnpj;
-	private Integer tipo; //TipoCliente vai ser armazenado como int (ou seja, tem 	TipoCliente p/ Integer)
-							//dpois a implemtacao ter sido feita 
-	@OneToMany(mappedBy="cliente", cascade=CascadeType.ALL) //cascade=apagar 1 cli > apagar end dele auto
+	private Integer tipo; 
+							
+	@OneToMany(mappedBy="cliente", cascade=CascadeType.ALL) 
 	private List<Endereco> enderecos = new ArrayList<>();	
 	
 	//NAO PRECISA CRIAR A CLASSE (TELEFONE) POR SER MTO SIMPLES
