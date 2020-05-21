@@ -72,8 +72,7 @@ public class CategoriaResource {
 		List<CategoriaDTO> listDTO = list.stream().map(obj -> new CategoriaDTO(obj)).collect(Collectors.toList());
 		return ResponseEntity.ok().body(listDTO);
 	}
-	
-	
+		
 	//pagination - endpoint p/ pegar 1 req e chamar o método de service
 	@RequestMapping(value="/page", method=RequestMethod.GET) 
 	public ResponseEntity<Page<CategoriaDTO>> findPage(

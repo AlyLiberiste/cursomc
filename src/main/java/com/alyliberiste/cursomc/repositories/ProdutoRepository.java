@@ -1,11 +1,26 @@
 package com.alyliberiste.cursomc.repositories;
 
+import java.util.List;
+
+import javax.transaction.Transactional;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+//import org.springframework.data.jpa.repository.Query;
+//import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import com.alyliberiste.cursomc.domain.Categoria;
 import com.alyliberiste.cursomc.domain.Produto;
 
 @Repository
-public interface ProdutoRepository extends JpaRepository<Produto, Integer>{ //apaga class e coloca interface
-//objeto desse tipo, vai ser capaz de realizar operações(CRUD) e/ou acess a dados
+public interface ProdutoRepository extends JpaRepository<Produto, Integer>{ 
+	@Transactional
+	
+	//@Query("SELECT DISTINCT obj FROM Produto obj INNER JOIN obj.categorias cat WHERE obj.nome LIKE %:nome% AND cat IN :categorias")
+	//Page<Produto> search(@Param("nome") String nome, @Param("categorias") List<Categoria> categorias, Pageable PageRequest);
+			//		OU c/ palavra chave do proprio Spring Data
+	Page<Produto> findDistinctByNomeContainingAndCategoriasIn(String nome, List<Categoria> categorias, Pageable PageRequest);
+
 }
