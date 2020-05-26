@@ -36,12 +36,13 @@ public class ClienteService {
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + Cliente.class.getName()));
 	}
-		//inserindo cli
-		public Cliente insert(Cliente obj) {
-			obj.setId(null);
-			obj = repo.save(obj);
-			enderecoRepository.saveAll(obj.getEnderecos());
-			return obj;
+		
+	@Transactional
+	public Cliente insert(Cliente obj) {
+		obj.setId(null);
+		obj = repo.save(obj);
+		enderecoRepository.saveAll(obj.getEnderecos());
+		return obj;
 		}
 	//Update Cli
 		public Cliente update(Cliente obj) {

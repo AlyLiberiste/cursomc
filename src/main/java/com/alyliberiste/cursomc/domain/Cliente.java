@@ -36,9 +36,6 @@ public class Cliente implements Serializable{
 	@OneToMany(mappedBy="cliente", cascade=CascadeType.ALL) 
 	private List<Endereco> enderecos = new ArrayList<>();	
 	
-	//NAO PRECISA CRIAR A CLASSE (TELEFONE) POR SER MTO SIMPLES
-	//É PRECISO IMPLEMTAR 1 COLECCSAO DE STRINGS ASSOCIADA AO CLI DE TIPO SET
-	//SET=CJTO QUE NAO ACEITA REPETICAO
 	@ElementCollection
 	@CollectionTable(name="TELEFONE")
 	private Set<String>  telefones = new HashSet<>();

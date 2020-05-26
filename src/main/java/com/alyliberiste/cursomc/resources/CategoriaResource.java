@@ -4,6 +4,7 @@ import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,12 +35,12 @@ public class CategoriaResource {
 		return ResponseEntity.ok().body(obj);
 	}
 	
-	//INSERINDO 1 NOVA CAT		
+	@Transactional	
 	@RequestMapping(method=RequestMethod.POST) 
 	//Validation
-	ResponseEntity<Void> insert(@Valid @RequestBody CategoriaDTO objDTO){
+	ResponseEntity<Void> insert(@Valid @RequestBody CategoriaDTO objDto){
 		//convert objDTO p/ obj entity
-		Categoria obj = service.fromDTO(objDTO);
+		Categoria obj = service.fromDTO(objDto);
 		obj = service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
 				.path("/{id}").buildAndExpand(obj.getId()).toUri();

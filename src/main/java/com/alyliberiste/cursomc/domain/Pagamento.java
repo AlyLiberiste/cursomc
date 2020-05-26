@@ -12,10 +12,12 @@ import javax.persistence.OneToOne;
 
 import com.alyliberiste.cursomc.domain.enums.EstadoPagamento;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 @Entity
 @Inheritance(strategy=InheritanceType.JOINED) //mapeamto de herança e fazer junção da tabs dependetes
-public abstract class Pagamento implements Serializable{ //abstract p/ nao poder instanciar obj do tipo pagamento
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "@type") //campo adicional
+public abstract class Pagamento implements Serializable{ 
 	private static final long serialVersionUID = 1L;
 	
 	@Id

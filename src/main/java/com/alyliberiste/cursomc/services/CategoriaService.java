@@ -3,6 +3,8 @@ package com.alyliberiste.cursomc.services;
 import java.util.List;
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
@@ -28,7 +30,7 @@ public class CategoriaService {
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + Categoria.class.getName()));
 	}
 	
-	//inserindo Cat
+	@Transactional
 	public Categoria insert(Categoria obj) {
 		obj.setId(null);				//garantir q esta inserindo 1 objeto novo
 		return repo.save(obj);
@@ -68,7 +70,7 @@ public class CategoriaService {
 	public Categoria fromDTO(CategoriaDTO objDTO) {
 		return new Categoria(objDTO.getId(), objDTO.getNome());
 	}
-	//atualizacao do cat buscado no BD conforme declado em cima
+	//atualizacao do cat buscado no BD conforme declarado em cima
 	private void updateData(Categoria newObj, Categoria obj) {
 		newObj.setNome(obj.getNome());
 	}
