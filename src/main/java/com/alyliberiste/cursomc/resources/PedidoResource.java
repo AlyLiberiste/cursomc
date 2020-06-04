@@ -24,18 +24,17 @@ public class PedidoResource {
 	@Autowired
 	private PedidoService service;
 	
-	@RequestMapping(value="/{id}",method=RequestMethod.GET) 
-	public ResponseEntity<Pedido> find(@PathVariable Integer id) {
-		Pedido obj = service.find(id); //era service.buscar(id);
-		return ResponseEntity.ok().body(obj);		
+	@RequestMapping(value="/{id}", method=RequestMethod.GET)
+	public ResponseEntity<Pedido> find(@PathVariable Integer id) {		
+		Pedido obj = service.find(id);
+		return ResponseEntity.ok().body(obj);
 	}
 		@Transactional
-		@RequestMapping(method=RequestMethod.POST) 
-		ResponseEntity<Void> insert(@Valid @RequestBody Pedido obj){
-			obj = service.insert(obj);
-			URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
-					.path("/{id}").buildAndExpand(obj.getId()).toUri();
-			return ResponseEntity.created(uri).build();
-			
-		}
-}
+		@RequestMapping(method=RequestMethod.POST)	
+		public ResponseEntity<Void> insert(@Valid @RequestBody Pedido obj) {	
+			obj = service.insert(obj);	
+			URI uri = ServletUriComponentsBuilder.fromCurrentRequest()	
+					.path("/{id}").buildAndExpand(obj.getId()).toUri();	
+			return ResponseEntity.created(uri).build();	
+		}	
+	}

@@ -18,30 +18,30 @@ import javax.persistence.OneToOne;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
-public class Pedido implements Serializable{
+public class Pedido implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
+	
 	@JsonFormat(pattern="dd/MM/yyyy HH:mm")
 	private Date instante;
 	
-	@OneToOne(cascade=CascadeType.ALL, mappedBy="pedido")	//p/ qdo salvar e pedido e o seu pagamto & foi mapeado por pedido
-	private Pagamento pagamento;							//pedido tem 1 pagamento
+	@OneToOne(cascade=CascadeType.ALL, mappedBy="pedido")
+	//p/ qdo salvar e pedido e o seu pagamto & foi mapeado por pedido
+	private Pagamento pagamento;
 	
 	@ManyToOne
 	@JoinColumn(name="cliente_id")
-	private Cliente cliente;				 				//pedido tem 1 cliente
+	private Cliente cliente;	//pedido tem 1 cliente
 	
 	@ManyToOne
 	@JoinColumn(name="endereco_de_entrega_id")
 	private Endereco enderecoDeEntrega; 					//pedido tem 1 endereco de entrega
 	
-	
-	@OneToMany(mappedBy="id.pedido")						//foi mapeado no ItemPedido
+	@OneToMany(mappedBy="id.pedido")
 	private Set<ItemPedido> itens = new HashSet<>(); 		// não vai ter item repetido pro msmo pedido
-	
 	
 	public Pedido() {
 		
@@ -58,7 +58,7 @@ public class Pedido implements Serializable{
 
 	public double getValorTotal() {
 		double soma = 0.0;
-		for(ItemPedido ip : itens) {
+		for (ItemPedido ip : itens) {
 			soma = soma + ip.getSubTotal();
 		}
 		return soma;

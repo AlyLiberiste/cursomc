@@ -31,7 +31,7 @@ public class ClienteInsertValidator implements ConstraintValidator<ClienteInsert
 			list.add(new FieldMessage("cpfOucnpj", "CPF inválido"));
 		}
 		
-		if(objDto.getTipo().equals(TipoCliente.PESSOAJURIDICA.getCod()) && !BR.isValidCNPJ(objDto.getCpfOucnpj())) {
+		if (objDto.getTipo().equals(TipoCliente.PESSOAJURIDICA.getCod()) && !BR.isValidCNPJ(objDto.getCpfOucnpj())) {
 			list.add(new FieldMessage("cpfOucnpj", "CNPJ inválido"));
 		}
 		
@@ -40,7 +40,7 @@ public class ClienteInsertValidator implements ConstraintValidator<ClienteInsert
 		if(aux != null) {
 			list.add(new FieldMessage("email", "Email já cadastrado"));
 		}
-
+	
 		for (FieldMessage e : list) {
 			context.disableDefaultConstraintViolation();
 			context.buildConstraintViolationWithTemplate(e.getMessage()).addPropertyNode(e.getFieldName())

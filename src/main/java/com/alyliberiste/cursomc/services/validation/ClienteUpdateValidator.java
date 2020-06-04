@@ -41,7 +41,7 @@ public class ClienteUpdateValidator implements ConstraintValidator<ClienteUpdate
 
 		//test de validation update de cli (email nao pode ser repedito)
 		Cliente aux = repo.findByEmail(objDto.getEmail());
-		if(aux != null && !aux.getId().equals(uriId)) {
+		if (aux != null && !aux.getId().equals(uriId)) {
 			list.add(new FieldMessage("email", "Email já cadastrado"));
 		}
 
