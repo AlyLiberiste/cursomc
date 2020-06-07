@@ -19,27 +19,27 @@ import com.alyliberiste.cursomc.services.exceptions.ObjectNotFoundException;
 
 @Service
 public class PedidoService {
+	
 	@Autowired
 	private PedidoRepository repo;
-
+	
 	@Autowired
 	private BoletoService boletoService;
-
+	
 	@Autowired
 	private PagamentoRepository pagamentoRepository;
-
+	
 	@Autowired
 	private ItemPedidoRepository itemPedidoRepository;
-
+	
 	@Autowired
 	private ProdutoService produtoService;
-
+	
 	public Pedido find(Integer id) {
 		Optional<Pedido> obj = repo.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + Pedido.class.getName()));
 	}
-
 	@Transactional
 	public Pedido insert(Pedido obj) {
 		obj.setId(null);
@@ -57,7 +57,6 @@ public class PedidoService {
 			ip.setPreco(produtoService.find(ip.getProduto().getId()).getPreco());
 			ip.setPedido(obj);
 		}
-
 		itemPedidoRepository.saveAll(obj.getItens());
 		return obj;
 	}

@@ -82,7 +82,7 @@ public class ClienteService {
 		//inserindo clienteNewDTO
 		@Transactional
 		public Cliente fromDTO(ClienteNewDTO objDto) {
-			Cliente cli = new Cliente(null, objDto.getNome(), objDto.getEmail(), objDto.getCpfOucnpj(),
+			Cliente cli = new Cliente(null, objDto.getNome(), objDto.getEmail(), objDto.getCpfOuCnpj(),
 					TipoCliente.toEnum(objDto.getTipo()));
 			//Cidade cid = cidadeRepository.findOne(objDto.getCidadeId());
 			Cidade cid = new Cidade(objDto.getCidadeId(), null, null);

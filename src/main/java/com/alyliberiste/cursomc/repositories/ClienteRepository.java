@@ -7,9 +7,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.alyliberiste.cursomc.domain.Cliente;
 
 @Repository
-public interface ClienteRepository extends JpaRepository<Cliente, Integer>{ //apaga class e coloca interface
-//objeto desse tipo, vai ser capaz de realizar operações(CRUD) e/ou acess a dados
-	
+public interface ClienteRepository extends JpaRepository<Cliente, Integer> {
+
 	@Transactional(readOnly=true)
 	Cliente findByEmail(String email);
 }

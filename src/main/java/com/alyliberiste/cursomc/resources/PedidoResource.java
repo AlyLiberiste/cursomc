@@ -2,7 +2,6 @@ package com.alyliberiste.cursomc.resources;
 
 import java.net.URI;
 
-import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,16 +24,16 @@ public class PedidoResource {
 	private PedidoService service;
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
-	public ResponseEntity<Pedido> find(@PathVariable Integer id) {		
+	public ResponseEntity<Pedido> find(@PathVariable Integer id) {
 		Pedido obj = service.find(id);
 		return ResponseEntity.ok().body(obj);
 	}
-		@Transactional
-		@RequestMapping(method=RequestMethod.POST)	
-		public ResponseEntity<Void> insert(@Valid @RequestBody Pedido obj) {	
-			obj = service.insert(obj);	
-			URI uri = ServletUriComponentsBuilder.fromCurrentRequest()	
-					.path("/{id}").buildAndExpand(obj.getId()).toUri();	
-			return ResponseEntity.created(uri).build();	
-		}	
+	
+	@RequestMapping(method=RequestMethod.POST)
+	public ResponseEntity<Void> insert(@Valid @RequestBody Pedido obj) {
+		obj = service.insert(obj);
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
+				.path("/{id}").buildAndExpand(obj.getId()).toUri();
+		return ResponseEntity.created(uri).build();
 	}
+}

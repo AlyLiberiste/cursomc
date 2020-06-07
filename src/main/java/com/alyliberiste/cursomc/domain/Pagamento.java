@@ -15,28 +15,28 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 @Entity
-@Inheritance(strategy=InheritanceType.JOINED) //mapeamto de herança e fazer junção da tabs dependentes
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "@type") //campo adicional
-public abstract class Pagamento implements Serializable { 
+@Inheritance(strategy=InheritanceType.JOINED)
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "@type")
+public abstract class Pagamento implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
 	private Integer id;
 	private Integer estado;
-	
+
 	@JsonIgnore
 	@OneToOne
 	@JoinColumn(name="pedido_id")
-	@MapsId                      //p/ q o id do pagamento seja o mesmo do pedido
-	private Pedido pedido;		 //pagamento tem 1 pedido
+	@MapsId
+	private Pedido pedido;
 	
-	public Pagamento() {	
+	public Pagamento() {
 	}
 
 	public Pagamento(Integer id, EstadoPagamento estado, Pedido pedido) {
 		super();
 		this.id = id;
-		this.estado = (estado == null) ? null : estado.getCod();
+		this.estado = (estado==null) ? null : estado.getCod();
 		this.pedido = pedido;
 	}
 
@@ -87,5 +87,5 @@ public abstract class Pagamento implements Serializable {
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
-	}
+	}	
 }

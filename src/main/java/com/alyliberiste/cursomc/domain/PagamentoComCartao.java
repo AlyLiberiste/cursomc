@@ -2,8 +2,9 @@ package com.alyliberiste.cursomc.domain;
 
 import javax.persistence.Entity;
 
-import com.alyliberiste.cursomc.domain.enums.EstadoPagamento;
 import com.fasterxml.jackson.annotation.JsonTypeName;
+
+import com.alyliberiste.cursomc.domain.enums.EstadoPagamento;
 
 @Entity
 @JsonTypeName("pagamentoComCartao")
@@ -14,9 +15,7 @@ public class PagamentoComCartao extends Pagamento {
 	
 	public PagamentoComCartao() {
 	}
-	
-	//como pagamento é 1 subclass, tem q gerar os construtores com superclass
-	//acrescentar as atribuições
+
 	public PagamentoComCartao(Integer id, EstadoPagamento estado, Pedido pedido, Integer numeroDeParcelas) {
 		super(id, estado, pedido);
 		this.numeroDeParcelas = numeroDeParcelas;
@@ -29,5 +28,5 @@ public class PagamentoComCartao extends Pagamento {
 	public void setNumeroDeParcelas(Integer numeroDeParcelas) {
 		this.numeroDeParcelas = numeroDeParcelas;
 	}
-	
+		
 }
