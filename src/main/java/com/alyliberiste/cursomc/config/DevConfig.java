@@ -1,4 +1,4 @@
-package com.alyliberiste.cursomc.config;
+/*package com.alyliberiste.cursomc.config;
 
 import java.text.ParseException;
 
@@ -10,16 +10,17 @@ import org.springframework.context.annotation.Profile;
 import com.alyliberiste.cursomc.services.DBService;
 
 @Configuration
-@Profile("test")
-public class TestConfig {
+@Profile("dev")
+public class DevConfig {
 	
 	@Autowired
 	private DBService dbService;
 	
 	@Bean
 	public boolean instantiateDatabase() throws ParseException {
+			
 		dbService.instantiateTestDatabase();
 		return true;
 	}
 
-}
+}*/
